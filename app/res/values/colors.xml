@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="JungleGreen">#26C281</color>
+    <color name="GrassGreenBamboo">#006442</color>
+    <color name="PictonBlue">#59ABE3</color>
+    <color name="DodgerBlue">#19B5FE</color>
+    <color name="FireMonzaRed">#CF000F</color>
+    <color name="FirePurecrimsonRed">#C3272B</color>
+    <color name="PorcelainWhite">#ECF0F1</color>
+    <color name="CarraraWhite">#F2F1EF</color>
+    <color name="WaterLapisBlue">#1F4788</color>
+    <color name="FireRedOrange">#DC3023</color>
+    <color name="FireScarlet">#CF3A24</color>
+    <color name="FireOrange">#FF5349</color>
+    <color name="FireSunset">#FE4C40</color>
+    <color name="black">#000000</color>
+    <color name="transparentblack">#00000000</color>
+    <color name="britishgray">#2f3640</color>
+    <color name="americangray">#202125</color>
+    <color name="americanmorefaintgray">#b2bec3</color>
+    <color name="americanfaintgray">#636e72</color>
+</resources>
