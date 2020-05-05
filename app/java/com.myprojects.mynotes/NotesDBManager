@@ -1,0 +1,70 @@
+package com.awesome.mystartup
+
+import android.content.ContentValues
+import android.content.Context
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteOpenHelper
+import android.database.sqlite.SQLiteQueryBuilder
+import android.widget.Toast
+
+class NotesDBManager{
+    val dbName = "MyNotes"
+    val dbTable = "Notes"
+    val colID = "ID"
+    val colTitle = "Title"
+    val colDetails = "Details"
+    val dbVersion = 1
+
+    //CREATE TABLE IF NOT EXISTS <TABLE NAME> (<COLUMN ID> <TYPE OF COL ID> PRIMARY KEY, <COL TITLE> <TYPE OF TITLE>, <COL DETAILS> <TYPE>);
+    // CREATE TABLE TABLENAME  (COLNAME COLTYPE, COLNAME COLTYPE,....)
+    val sqlCreateTable = "CREATE TABLE IF NOT EXISTS "+dbTable+"("+colID+" INTEGER PRIMARY KEY,"+colTitle+" TEXT,"+colDetails+" TEXT);"
+
+    var sqlDB:SQLiteDatabase? = null
+
+    constructor(context: Context){
+        val db = DataBaseHelperNotes(context)
+        sqlDB = db.writableDatabase
+    }
+
+    inner class DataBaseHelperNotes:SQLiteOpenHelper{
+        var context:Context? = null
+        constructor(context:Context) : super(context,dbName,null,dbVersion) {
+            //This creates the database if it's not already created
+            this.context = context
+        }
+        override fun onCreate(db: SQLiteDatabase?) {
+            //This gets called once database is created
+            db!!.execSQL(sqlCreateTable)  //SQL command is executed and table is created in database
+            Toast.makeText(context,"Database is created.",Toast.LENGTH_LONG).show()
+        }
+
+        override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+            db!!.execSQL("Drop table IF EXISTS "+dbTable)
+        }
+
+    }
+
+    fun insert(value:ContentValues):Long{
+        //ContentValues data type allows key-value pairs to be stored
+        val ID = sqlDB!!.insert(dbTable,"",value)
+        return ID
+    }
+
+    fun Query(projection:Array<String>,selection:String, selectionArgs:Array<String>, sortOrder:String?):Cursor{
+        val qb = SQLiteQueryBuilder()
+        qb.tables = dbTable
+        val cursor = qb.query(sqlDB,projection,selection,selectionArgs,null,null,sortOrder)
+        return cursor
+    }
+
+    fun Delete(selection: String?,selectionArgs: Array<String>?):Int{
+        val count = sqlDB!!.delete(dbTable,selection,selectionArgs)
+        return count
+    }
+
+    fun Update(values:ContentValues,selection:String,selectionArgs:Array<String>):Int{
+        var count = sqlDB!!.update(dbTable,values,selection,selectionArgs)
+        return count
+    }
+}
